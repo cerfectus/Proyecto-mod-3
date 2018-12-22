@@ -3,7 +3,7 @@ const router = express.Router();
 const Games = require("../models/Games");
 const auth = require("../helpers/auth");
 
-router.get("/",  (req, res) => {
+router.get("/", auth.verifyToken ,(req, res) => {
     Games.find()
         .then(posts => {
             res.status(200).json({posts});
@@ -14,6 +14,7 @@ router.get("/",  (req, res) => {
 });
 
 router.post("/", (req, res) => {
+
     console.log(req.body)
 
     Games.create(req.body)
@@ -21,6 +22,7 @@ router.post("/", (req, res) => {
             res.status(201).json({post});
         })
         .catch(err => {
+            console.log(err)
             res.status(500).json({err, msg:"Ne se creo mijo"})
         })
 });

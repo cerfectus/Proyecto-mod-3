@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const upload = require("../helpers/multer");
 
-router.post("/login", async (req, res) => {
+router.post("/login",async (req, res) => {
     const user = await User.findOne({email: req.body.email});
     if(!user) return res.status(404).json({msg: "Email no es valido"});
 
@@ -17,7 +17,7 @@ router.post("/login", async (req, res) => {
         {id: user._id},
         process.env.SECRET,
         {
-        expiresIn: 860000
+        expiresIn: 8600000
     });
 
     delete user._doc.password;
